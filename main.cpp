@@ -8,11 +8,11 @@ int main() {
 
     Object ball = Object("ball", 'o');
     ball.setPosition(2, 1);
-    ball.setVelocity(3, 0);
+    ball.setVelocity(1, 0);
 
     Object cat = Object("cat", 'c');
     cat.setPosition(4, 4);
-    cat.setVelocity(2, 3);
+    cat.setVelocity(1, 1);
 
     space.addObject(ball);
     space.addObject(cat);

@@ -38,8 +38,8 @@ void Space2D::tick() {
 };
 
 void Space2D::run() {
-    int timeInterval = 500 * 1000;
-    int iterations = 15;
+    int timeInterval = 50 * 1000;
+    int iterations = 50;
 
     for (int i = 0; i < iterations; i++) {
         tick();
