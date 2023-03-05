@@ -1,0 +1,3 @@
+/Users/pat/Projects/cpp/physics/cmake-build-debug/CMakeFiles/physics.dir
+/Users/pat/Projects/cpp/physics/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/pat/Projects/cpp/physics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
