@@ -1,5 +1,5 @@
-#include "Object.h"
-#include "Space2D.h"
+#include "src/Object.h"
+#include "src/Space2D.h"
 
 using namespace std;
 
