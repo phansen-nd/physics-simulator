@@ -15,14 +15,16 @@ class Space2D {
     vector<Object> mObjects;
 
     void draw();
-    void tick();
+    void tick(int time);
 
 public:
-    explicit Space2D(int dimension = 50);
+    Space2D(int dimension = 50);
 
     void addObject(Object object);
 
     void run();
+
+    static const int maxTime = 20;
 };
 
 

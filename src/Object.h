@@ -31,7 +31,7 @@ public:
 
     void addForce(Force f, int startTime, int endTime);
     void removeForce(Force f);
-    void tick();
+    void tick(int time);
 };
 
 #endif //PHYSICS_OBJECT_H

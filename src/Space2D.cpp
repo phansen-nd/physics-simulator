@@ -31,19 +31,19 @@ void Space2D::draw() {
     cout << "\n";
 }
 
-void Space2D::tick() {
+void Space2D::tick(int time) {
     for (auto & object : mObjects) {
-        object.tick();
+        object.tick(time);
     }
 };
 
 void Space2D::run() {
-    int iterations = 100;
+    int iterations = maxTime;
 
     for (int t = 0; t < iterations; t++) {
         cout << "Time: " << t << endl;
-        tick();
+        tick(t);
         draw();
-        usleep(100*1000);
+        usleep(200*1000);
     }
 }

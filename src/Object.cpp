@@ -32,6 +32,8 @@ std::ostream &operator<<(std::ostream & os, const Object &object) {
 }
 
 void Object::addForce(Force f, int startTime, int endTime) {
+    f.setStartTime(startTime);
+    f.setEndTime(endTime);
     mForces.emplace_back(f);
 }
 
@@ -39,13 +41,20 @@ void Object::removeForce(Force f) {
     mForces.erase(std::remove(mForces.begin(), mForces.end(), f), mForces.end());
 }
 
-void Object::tick() {
+void Object::tick(int time) {
     for (auto it = mForces.begin(); it != mForces.end(); it++) {
+        if (time < it->getStartTime() || time > it->getEndTime()) {
+            continue;
+        }
+
         Vector2D accel = it->getAcceleration();
         mVelocity.x += accel.x;
         mVelocity.y += accel.y;
 
         mPosition.x += mVelocity.x;
         mPosition.y += mVelocity.y;
+
+        if (mPosition.x < 0) mPosition.x = 0;
+        if (mPosition.y < 0) mPosition.y = 0;
     }
 }

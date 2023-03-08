@@ -6,11 +6,12 @@ int main() {
 
     Object ball = Object("ball", 'o');
     ball.setPosition(1, 50);
-    ball.addForce({0, -1});
+    ball.addForce({0, -1}, 0, Space2D::maxTime);
 
     Object cat = Object("cat", 'c');
-    cat.setPosition(4, 45);
-    cat.addForce({0, -2});
+    cat.setPosition(4, 25);
+    cat.addForce({0, -1}, 0, Space2D::maxTime);
+    cat.addForce({1, 2}, 0, 2);
 
     space.addObject(ball);
     space.addObject(cat);

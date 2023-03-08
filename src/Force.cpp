@@ -11,6 +11,12 @@ Vector2D Force::getAcceleration() {
     return mAcceleration;
 }
 
+int Force::getStartTime() { return mStartTime; }
+int Force::getEndTime() { return mEndTime; }
+
+void Force::setStartTime(int start) { this->mStartTime = start; }
+void Force::setEndTime(int end) { this->mEndTime = end; }
+
 bool Force::operator==(const Force &other) const {
     return mAcceleration == other.mAcceleration;
 }
