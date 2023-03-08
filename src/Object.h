@@ -7,29 +7,30 @@
 
 #include <vector>
 #include <string>
-using namespace std;
+#include <iostream>
+#include <functional>
 
-struct Coordinate2D {
-    int x, y;
-};
+#include "Vector2D.cpp"
+#include "Force.h"
 
 class Object {
-    vector<int> mPosition;
-    vector<int> mVelocity;
-    vector<int> mAcceleration;
-    string mName;
+    Vector2D mPosition;
+    Vector2D mVelocity;
+    std::vector<Force> mForces;
+
+    std::string mName;
     char mIcon;
 
 public:
-    Object(string name, char icon);
-    string toString();
+    Object(std::string name, char icon);
+    friend std::ostream &operator<<(std::ostream & os, const Object &object);
 
-    Coordinate2D getPosition();
-    char getIcon();
-    void setPosition(int x, int y, int z = 0);
-    void setVelocity(int x, int y, int z = 0);
-    void setAcceleration(int x, int y, int z = 0);
+    Vector2D getPosition() const;
+    char getIcon() const;
+    void setPosition(int x, int y);
 
+    void addForce(Force f, int startTime, int endTime);
+    void removeForce(Force f);
     void tick();
 };
 

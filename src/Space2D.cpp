@@ -19,8 +19,8 @@ void Space2D::draw() {
     for (int y = mSize - 1; y >= 0; y--) {
         for (int x = 0; x < mSize; x++) {
             char toDraw = '.';
-            for (auto & object : mObjects) {
-                Coordinate2D position = object.getPosition();
+            for (auto const& object : mObjects) {
+                Vector2D position = object.getPosition();
                 if (position.x == x && position.y == y)
                     toDraw = object.getIcon();
             }
@@ -38,12 +38,12 @@ void Space2D::tick() {
 };
 
 void Space2D::run() {
-    int timeInterval = 50 * 1000;
-    int iterations = 50;
+    int iterations = 100;
 
-    for (int i = 0; i < iterations; i++) {
+    for (int t = 0; t < iterations; t++) {
+        cout << "Time: " << t << endl;
         tick();
         draw();
-        usleep(timeInterval);
+        usleep(100*1000);
     }
 }

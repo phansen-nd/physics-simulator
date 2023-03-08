@@ -3,54 +3,49 @@
 //
 
 #include <sstream>
+#include <functional>
+#include <algorithm>
+
 #include "Object.h"
 
-Object::Object(string name, char icon) {
+Object::Object(std::string name, char icon) {
     mName = name;
     mIcon = icon;
-    mPosition = vector<int>(3, 0);
-    mVelocity = vector<int>(3, 0);
-    mAcceleration = vector<int>(3, 0);
+    mPosition = Vector2D();
+    mVelocity = Vector2D();
 }
 
-string Object::toString() {
-    stringstream ss;
-    ss << "Object summary" << endl;
-    ss << "--------------------" << endl;
-    ss << "Position     | x: " << mPosition[0] << " y: " << mPosition[1] << " z: " << mPosition[2] << endl;
-    ss << "Velocity     | x: " << mVelocity[0] << " y: " << mVelocity[1] << " z: " << mVelocity[2] << endl;
-    ss << "Acceleration | x: " << mAcceleration[0] << " y: " << mAcceleration[1] << " z: " << mAcceleration[2] << endl;
-    return ss.str();
+char Object::getIcon() const { return mIcon; }
+
+Vector2D Object::getPosition() const { return {mPosition.x, mPosition.y}; }
+void Object::setPosition(int x, int y) {
+    mPosition.x = x;
+    mPosition.y = y;
 }
 
-Coordinate2D Object::getPosition() {
-    Coordinate2D coord = {mPosition[0], mPosition[1]};
-    return coord;
+std::ostream &operator<<(std::ostream & os, const Object &object) {
+    os << "Object summary" << std::endl;
+    os << "--------------------" << std::endl;
+    os << "Position     | x: " << object.mPosition.x << " y: " << object.mPosition.y << std::endl;
+    os << "Velocity     | x: " << object.mVelocity.x << " y: " << object.mVelocity.y << std::endl;
+    return os;
 }
 
-char Object::getIcon() { return mIcon; }
-
-void Object::setPosition(int x, int y, int z) {
-    mPosition[0] = x;
-    mPosition[1] = y;
-    mPosition[2] = z;
+void Object::addForce(Force f, int startTime, int endTime) {
+    mForces.emplace_back(f);
 }
 
-void Object::setVelocity(int x, int y, int z) {
-    mVelocity[0] = x;
-    mVelocity[1] = y;
-    mVelocity[2] = z;
-}
-
-void Object::setAcceleration(int x, int y, int z) {
-    mAcceleration[0] = x;
-    mAcceleration[1] = y;
-    mAcceleration[2] = z;
+void Object::removeForce(Force f) {
+    mForces.erase(std::remove(mForces.begin(), mForces.end(), f), mForces.end());
 }
 
 void Object::tick() {
-    for (int i = 0; i < mPosition.size(); i++) {
-        mPosition[i] += mVelocity[i];
-        mVelocity[i] += mAcceleration[i];
+    for (auto it = mForces.begin(); it != mForces.end(); it++) {
+        Vector2D accel = it->getAcceleration();
+        mVelocity.x += accel.x;
+        mVelocity.y += accel.y;
+
+        mPosition.x += mVelocity.x;
+        mPosition.y += mVelocity.y;
     }
 }
